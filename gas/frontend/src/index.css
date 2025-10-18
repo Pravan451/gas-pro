@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* GasGuard Pro V7 Industrial Safety Design System */
+
+@layer base {
+  :root {
+    /* Industrial Safety Color Palette */
+    --background: 210 11% 15%;
+    --foreground: 210 6% 93%;
+    
+    /* Industrial Surfaces */
+    --card: 210 14% 12%;
+    --card-foreground: 210 6% 90%;
+    
+    --popover: 210 14% 12%;
+    --popover-foreground: 210 6% 90%;
+    
+    /* Safety Orange Primary */
+    --primary: 22 100% 52%;
+    --primary-foreground: 210 14% 12%;
+    --primary-glow: 22 100% 65%;
+    
+    /* Industrial Secondary */
+    --secondary: 210 20% 25%;
+    --secondary-foreground: 210 6% 90%;
+    
+    /* Muted Industrial */
+    --muted: 210 14% 20%;
+    --muted-foreground: 210 6% 70%;
+    
+    /* Safety Accent */
+    --accent: 22 95% 45%;
+    --accent-foreground: 210 14% 12%;
+    
+    /* Danger Red */
+    --destructive: 0 84% 50%;
+    --destructive-foreground: 210 6% 93%;
+    --danger-glow: 0 100% 65%;
+    
+    /* Success Green */
+    --success: 142 76% 36%;
+    --success-foreground: 210 6% 93%;
+    --success-glow: 142 76% 50%;
+    
+    /* Warning Yellow */
+    --warning: 48 96% 53%;
+    --warning-foreground: 210 14% 12%;
+    
+    /* Industrial Borders */
+    --border: 210 14% 28%;
+    --input: 210 14% 20%;
+    --ring: 22 100% 52%;
+    
+    --radius: 0.375rem;
+    
+    /* Industrial Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-danger: linear-gradient(135deg, hsl(var(--destructive)), hsl(var(--danger-glow)));
+    --gradient-success: linear-gradient(135deg, hsl(var(--success)), hsl(var(--success-glow)));
+    --gradient-industrial: linear-gradient(135deg, hsl(var(--card)), hsl(var(--muted)));
+    
+    /* Industrial Shadows */
+    --shadow-industrial: 0 4px 20px -2px hsl(var(--primary) / 0.25);
+    --shadow-danger: 0 4px 20px -2px hsl(var(--destructive) / 0.4);
+    --shadow-success: 0 4px 20px -2px hsl(var(--success) / 0.3);
+    --shadow-glow: 0 0 30px hsl(var(--primary) / 0.5);
+    
+    /* Animations */
+    --transition-industrial: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-danger: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+  
+  .font-mono {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+  }
+}
+
+@layer components {
+  /* Emergency Pulse Animation */
+  @keyframes emergency-pulse {
+    0%, 100% { 
+      transform: scale(1);
+      box-shadow: 0 0 0 0 hsl(var(--destructive) / 0.7);
+    }
+    50% { 
+      transform: scale(1.05);
+      box-shadow: 0 0 0 10px hsl(var(--destructive) / 0);
+    }
+  }
+  
+  /* Industrial Glow */
+  @keyframes industrial-glow {
+    0%, 100% { box-shadow: 0 0 20px hsl(var(--primary) / 0.3); }
+    50% { box-shadow: 0 0 30px hsl(var(--primary) / 0.6), 0 0 40px hsl(var(--primary) / 0.2); }
+  }
+  
+  /* Slide Down Animation */
+  @keyframes slide-down {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Status Indicator Animations */
+  @keyframes status-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  
+  .emergency-pulse {
+    animation: emergency-pulse 1s ease-in-out infinite;
+  }
+  
+  .industrial-glow {
+    animation: industrial-glow 2s ease-in-out infinite;
+  }
+  
+  .slide-down {
+    animation: slide-down 0.4s ease-out;
+  }
+  
+  .status-pulse {
+    animation: status-pulse 2s ease-in-out infinite;
+  }
+  
+  /* Industrial UI Elements */
+  .industrial-card {
+    @apply bg-card border border-border rounded-lg shadow-lg backdrop-blur-sm;
+    background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--muted) / 0.8));
+  }
+  
+  .safety-button {
+    @apply relative overflow-hidden transition-all duration-300;
+  }
+  
+  .safety-button::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent;
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+  
+  .safety-button:hover::before {
+    transform: translateX(100%);
+  }
+  
+  /* Sensor Status Indicators */
+  .sensor-online {
+    @apply bg-success text-success-foreground;
+    box-shadow: 0 0 15px hsl(var(--success) / 0.5);
+  }
+  
+  .sensor-warning {
+    @apply bg-warning text-warning-foreground;
+    box-shadow: 0 0 15px hsl(var(--warning) / 0.5);
+  }
+  
+  .sensor-danger {
+    @apply bg-destructive text-destructive-foreground emergency-pulse;
+    box-shadow: 0 0 20px hsl(var(--destructive) / 0.7);
+  }
+  
+  .sensor-offline {
+    @apply bg-muted text-muted-foreground opacity-60;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
