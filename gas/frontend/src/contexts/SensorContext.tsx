@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 interface SensorReading {
   id: string;
@@ -57,9 +58,9 @@ export const SensorProvider: React.FC<{ children: ReactNode }> = ({ children }) 
  useEffect(() => {
   const fetchSensors = async () => {
     try {
-      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDAxMmZiNjkzNDQ4NTUyYTIwOTgyNyIsIm5hbWUiOiJQcmF2YW4iLCJpYXQiOjE3NTg0NjY4MTEsImV4cCI6MTc1OTA3MTYxMX0.u5MKI62QRqg4jFaeLD7NG4tahhrTobT6h4ulQ6vD8OE';
+      const token = localStorage.getItem("gasguard-token");
       
-      const res = await axios.get('http://localhost:5000/data', {
+      const res = await axios.get( `${API_BASE_URL}/data`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
