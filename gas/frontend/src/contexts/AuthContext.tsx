@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import axios from "axios";
+import api from "@/lib/api";
+
 const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 interface User {
@@ -38,7 +40,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const res = await axios.post( `${API_BASE_URL}/auth/login`, { email, password });
+      const res = await api.post( "/auth/login", { email, password });
       const data = res.data;
 
       if (data?.token && data?.user) {
@@ -63,7 +65,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const signup = async (name: string, email: string, password: string): Promise<boolean> => {
     try {
-      const res = await axios.post(`${API_BASE_URL}/auth/signup`, { name, email, password });
+      const res = await api.post("/auth/signup", { name, email, password });
       const data = res.data;
 
       if (data?.token && data?.user) {

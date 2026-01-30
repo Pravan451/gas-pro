@@ -8,6 +8,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
+import api from '@/lib/api';
+
 
 const Contact: React.FC = () => {
   const { toast } = useToast();
@@ -33,26 +35,13 @@ const Contact: React.FC = () => {
   setIsSubmitting(true);
 
   try {
-    const response = await fetch('http://localhost:5000/contact/send', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(formData)
+   await api.post('/contact/send', formData);
+
+toast({
+  title: "Message Sent Successfully",
+  description: "The fire station has received your message.",
 });
 
-    const data = await response.json();
-
-    if (response.ok) {
-      toast({
-        title: "Message Sent Successfully",
-        description: "The fire station has received your message.",
-      });
-      setFormData({ name: '', email: '', subject: '', category: '', priority: '', message: '' });
-    } else {
-      toast({
-        title: "Error Sending Message",
-        description: data.error || "Something went wrong.",
-      });
-    }
   } catch (err) {
     toast({
       title: "Network Error",

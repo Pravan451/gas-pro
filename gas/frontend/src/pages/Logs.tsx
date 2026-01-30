@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import api from "@/lib/api";
+
 import { motion } from 'framer-motion';
 import { 
   FileText, Search, Filter, Download, 
@@ -45,7 +47,7 @@ const Logs: React.FC = () => {
         }
 
         // ✅ Fetch sensor data as system logs
-        const res = await axios.get('http://localhost:5000/data', {
+        const res = await api.get("/logs", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
